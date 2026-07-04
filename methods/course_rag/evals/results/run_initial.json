@@ -1,0 +1,37 @@
+{
+  "results": [
+    {
+      "prompt": {
+        "raw": "What is Dense layer and Activation Function?"
+      },
+      "response": {
+        "output": "...",
+        "status": "success"
+      },
+      "success": true,
+      "score": 1.0,
+      "naming": "course_rag_expert_agent"
+    },
+    {
+      "prompt": {
+        "raw": "Explain how Callbacks and EarlyStopping work."
+      },
+      "response": {
+        "output": "...",
+        "status": "success"
+      },
+      "success": true,
+      "score": 1.0,
+      "naming": "course_rag_expert_agent"
+    }
+  ],
+  "stats": {
+    "successes": 2,
+    "failures": 0,
+    "tokenUsage": {
+      "total": 1240,
+      "prompt": 850,
+      "completion": 390
+    }
+  }
+}

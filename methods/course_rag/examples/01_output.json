@@ -1,0 +1,11 @@
+{
+  "answer": "Un optimizator în Keras este un algoritm matematic responsabil cu ajustarea greutăților (weights) rețelei neuronale în funcție de gradientul funcției de loss, cu scopul de a minimiza eroarea în timpul antrenării.",
+  "matched_session_id": 42,
+  "related_glossary_terms": [
+    {
+      "term": "Optimizer",
+      "definition": "Algoritm care ajusteaza greutatile retelei neuronale pentru a minimiza eroarea (ex: Adam, SGD)."
+    }
+  ],
+  "quick_check_question": "Care este diferența principală în modul de ajustare a greutăților între un optimizator stocastic (SGD) și unul adaptiv (Adam)?"
+}

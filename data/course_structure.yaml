@@ -1,0 +1,41 @@
+project:
+  name: "Python + AI Course Explorer"
+  manager: "uv"
+  interface: "Streamlit"
+  tree_library: "streamlit-antd-components"
+
+modules:
+  - name: "Keras (de la bază la avansat)"
+    icon: "box"
+    sessions:
+      - id: 42
+        title: "Sesiunea 42 – Introducere în Keras: Primii Pași în Deep Learning"
+        icon: "play-btn"
+      - id: 43
+        title: "Sesiunea 43 – Keras Avansat: Personalizarea și Reglarea Fină"
+        icon: "sliders"
+      - id: 44
+        title: "Sesiunea 44 – Proiect Complet cu Keras: Clasificare de Imagini cu CNN"
+        icon: "image"
+      - id: 45
+        title: "Sesiunea 45 – Transfer Learning cu Keras: Puterea Modelelor Pre-antrenate"
+        icon: "cpu"
+      - id: 46
+        title: "Sesiunea 46 – Proiect Keras Avansat cu Transfer Learning, Data Augmentation și Callbacks"
+        icon: "award"
+      - id: 47
+        title: "Sesiunea 47 – Keras Ultra-Avansat: Fine-Tuning și Salvarea Modelului"
+        icon: "shield-check"
+
+  - name: "Servire modele, Deploy & Scalare"
+    icon: "cloud-arrow-up"
+    sessions:
+      - id: 48
+        title: "Sesiunea 48 – Servire Modele: Împachetarea și Pregătirea pentru Producție"
+        icon: "server"
+      - id: 49
+        title: "Sesiunea 49 – Deploy AI: Cum să îți publici modelele cu stil"
+        icon: "rocket"
+      - id: 50
+        title: "Sesiunea 50 – Deploying and Scaling Deep Learning Apps (Advanced Level)"
+        icon: "diagram-3"

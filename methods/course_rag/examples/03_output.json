@@ -1,0 +1,11 @@
+{
+  "answer": "Transfer Learning este o metodă de Deep Learning în care un model antrenat inițial pe un set de date masiv generic (cum este ImageNet) este reutilizat ca punct de pornire pentru un model nou, dedicat unei probleme specifice. Acest proces reduce drastic timpul de calcul și necesarul de imagini noi.",
+  "matched_session_id": 45,
+  "related_glossary_terms": [
+    {
+      "term": "Transfer Learning",
+      "definition": "Tehnica prin care cunostintele unui model deja antrenat pe un set masiv de date sunt folosite pentru o problema noua."
+    }
+  ],
+  "quick_check_question": "De ce este obligatoriu să setăm proprietatea `trainable = False` pe baza modelului pre-antrenat atunci când inițiem faza de adăugare a noilor straturi de clasificare?"
+}

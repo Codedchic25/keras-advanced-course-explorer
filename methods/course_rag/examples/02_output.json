@@ -1,0 +1,11 @@
+{
+  "answer": "Un Callback în Keras este un obiect care poate efectua acțiuni în diverse etape ale antrenamentului (la începutul sau sfârșitul unei epoci, sau după fiecare batch). Cel mai comun exemplu este EarlyStopping, care oprește execuția dacă performanța pe setul de validare stagnează.",
+  "matched_session_id": 43,
+  "related_glossary_terms": [
+    {
+      "term": "Callbacks",
+      "definition": "Functii apelate in puncte specifice ale antrenamentului (ex: EarlyStopping salveaza modelul cand performanta stagneaza)."
+    }
+  ],
+  "quick_check_question": "Ce parametru critic din Callback-ul EarlyStopping determină numărul de epoci pe care modelul le mai poate rula fără a înregistra îmbunătățiri înainte de a opri antrenarea?"
+}

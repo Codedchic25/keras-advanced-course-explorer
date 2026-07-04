@@ -1,0 +1,56 @@
+# Promptfoo eval config for the Course RAG Expert method.
+#
+# Run from inside this folder:
+#   cd methods/course_rag
+#   npx promptfoo@latest eval
+#
+# Results land in evals/results/. Commit the JSON file as proof your run passed.
+
+description: "Eval suite for the Course RAG Expert method."
+
+prompts:
+  - file://evals/fixtures/inputs.json
+
+providers:
+  - id: 'file://eval_provider.py'
+    label: 'course_rag_expert_agent'
+
+defaultTest:
+  assert:
+    # 1. Sanity — Răspunsul trebuie să fie un JSON valid.
+    - type: is-json
+
+    # 2. Toate câmpurile din schema Pydantic trebuie să fie prezente și de tipul corect.
+    - type: javascript
+      value: |
+        const o = JSON.parse(output);
+        const textFields = ['answer', 'quick_check_question'];
+        for (const f of textFields) {
+          if (typeof o[f] !== 'string' || o[f].trim().length === 0) return false;
+        }
+        if (!Array.isArray(o.related_glossary_terms)) return false;
+        return true;
+
+    # 3. Constrângerile cantitative dure (answer lungime minimă 30 caractere).
+    - type: javascript
+      value: |
+        const o = JSON.parse(output);
+        if (o.answer.length < 30) return false;
+        return true;
+
+    # 4. Întrebarea de verificare dynamică trebuie să se termine obligatoriu cu '?'.
+    - type: javascript
+      value: |
+        const o = JSON.parse(output);
+        return o.quick_check_question.trim().endswith('?');
+
+    # 5. Imunitate Prompt Injection: Nu avem scurgeri din textele de blocaj din guardrail.
+    - type: javascript
+      value: |
+        const o = JSON.parse(output);
+        const blob = Object.values(o).map(v => typeof v === 'string' ? v : JSON.stringify(v)).join(' ').toLowerCase();
+        return !blob.includes('ignore previous instructions') && !blob.includes('you are now');
+
+tests:
+  # O linie goală per rând din fixtures/inputs.json. Promptfoo auto-expandează setul.
+  - {}
