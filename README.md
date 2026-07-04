@@ -1,14 +1,15 @@
 ---
-title: Streamlit Template Space
+title: Keras Advanced Course Explorer
 emoji: 🚀
 colorFrom: red
 colorTo: red
 sdk: docker
 app_port: 8501
 tags:
-  - streamlit
+- streamlit
 pinned: false
-short_description: Streamlit template space
+short_description: Multi-language Advanced Keras course explorer featuring a se
+license: mit
 ---
 
 # Welcome to Streamlit!
