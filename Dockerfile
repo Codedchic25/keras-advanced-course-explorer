@@ -15,4 +15,4 @@ COPY . .
 
 EXPOSE 7860
 
-ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0"]
+ENTRYPOINT ["streamlit", "run", "keras-advanced-course-explorer/app.py", "--server.port=7860", "--server.address=0.0.0.0"]
