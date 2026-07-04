@@ -8,17 +8,21 @@ import streamlit as st
 # Configurare de bază a paginii pentru un aspect profesional de dashboard
 st.set_page_config(page_title="Keras Advanced Course Explorer", layout="wide")
 
-# Încărcarea bazei de date i18n cu gestionare strictă a erorilor
+# Definirea căilor absolute obligatorii pentru containerul Docker
+BASE_DIR = Path(__file__).resolve().parent
+DATABASE_PATH = BASE_DIR / "data" / "database.json"
+
+# Încărcarea bazei de date cu gestionare strictă a erorilor și căi absolute
 @st.cache_data
 def load_course_data():
     try:
-        with open("data/database.json", "r", encoding="utf-8") as f:
+        with open(DATABASE_PATH, "r", encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
-        st.error("Error: 'data/database.json' file not found.")
+        st.error(f"Error: '{DATABASE_PATH}' file not found.")
         return {}
     except json.JSONDecodeError:
-        st.error("Error: 'data/database.json' is corrupted.")
+        st.error(f"Error: '{DATABASE_PATH}' is corrupted.")
         return {}
 
 data = load_course_data()
