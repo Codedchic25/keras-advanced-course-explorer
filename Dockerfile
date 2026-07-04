@@ -21,3 +21,4 @@ EXPOSE 7860
 
 # Pornire curată fără flag-uri care pot bloca proxy-ul intern HF
 CMD ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0"]
+]
