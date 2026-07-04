@@ -164,9 +164,9 @@
           "EN": "Hosting a Deep Learning model in a server infrastructure capable of receiving HTTP requests and returning predictions",
           "DE": "Hosting eines Deep-Learning-Modells in einer Serverinfrastruktur, die HTTP-Anfragen empfangen und Vorhersagen zurückgeben kann"
         }
-      },
-      {
-        "termen": {"RO": "TF Serving", "EN": "TF Serving", "DE": "TF Serving"},
+      }
+    ],
+      "termen": {"RO": "TF Serving", "EN": "TF Serving", "DE": "TF Serving"},
         "definitie": {
           "RO": "Un sistem de servire de inalta performanta dezvoltat de Google, optimizat pentru rularea modelelor TensorFlow si Keras in productie",
           "EN": "A high-performance serving system developed by Google, optimized for running TensorFlow and Keras models in production",
