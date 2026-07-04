@@ -8,7 +8,7 @@ import streamlit as st
 # 1. Configurare Pagină
 st.set_page_config(page_title="Multi-Lang Course Explorer", page_icon="🎓", layout="wide")
 
-# 2. Injectare CSS pentru lățime Sidebar robustă
+# 2. Injectare CSS pentru lățime Sidebar robustă (Previne tăierea textului)
 st.markdown(
     """
     <style>
@@ -69,9 +69,9 @@ with st.sidebar:
     options = [f"S{sid}: {title_map[lang]} {'✅' if progres.get(str(sid)) else '⏳'}" for sid, title_map in COURSES.items()]
     selected = st.selectbox("Alege:", options=options, label_visibility="collapsed")
     
-    # Corecție extras ID sigură: curățăm string-ul înainte de split
-    clean_string = selected.replace("S", "")
-    current_id = int(clean_string.split(":")[0])
+    # EXTRASE ID MINUȚIOS: Extrage curat string-ul înainte de două puncte și elimină caracterul 'S'
+    part_before_colon = selected.split(":")[0]
+    current_id = int(part_before_colon.replace("S", ""))
     st.markdown("---")
 
     st.markdown(f"**{t.get('progress_title', 'Progres')}**")
@@ -109,7 +109,7 @@ if content:
     
     with t3:
         exercitii_raw = content.get("exercitii", {})
-        # Gestionare robustă: verificăm dacă exercițiile sunt deja dicționar multilingv sau listă clasică
+        # Identificare minuțioasă a tipului de date pentru structura multilingvă din database.json
         if isinstance(exercitii_raw, dict):
             exercitii_lang = exercitii_raw.get(lang, exercitii_raw.get("RO", []))
         elif isinstance(exercitii_raw, list):
