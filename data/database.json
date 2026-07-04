@@ -60,7 +60,7 @@
       {"termen": "Fine-Tuning", "definitie": "Procesul de dezghetare a ultimelor straturi ale unui model pre-antrenat si re-antrenarea lor cu o rata de invatare foarte mica pe noul dataset pentru o aliniere perfecta."},
       {"termen": "Model Saving (h5/keras)", "definitie": "Salvarea intregii arhitecturi a modelului, a greutatilor si a configuratiei optimizatorului intr-un singur fisier pe disc pentru utilizare ulterioara."}
     ],
-    "assets": "# Fine-tuning pe ultimele layere ale modelului\nbase_model.trainable = True\nfor layer in base_model.layers[:-4]:\n    layer.trainable = False\n\nmodel.compile(optimizer=Adam(learning_rate=1e-5), loss='categorical_crossentropy')\nmodel.save('final_keras_model.keras')",
+    "assets": "base_model.trainable = True\nfor layer in base_model.layers[:-4]:\n    layer.trainable = False\n\nmodel.compile(optimizer=Adam(learning_rate=1e-5), loss='categorical_crossentropy')\nmodel.save('final_keras_model.keras')",
     "exercitii": [
       "Dezgheata doar ultimele 2 straturi ale retelei VGG16.",
       "Salveaza modelul antrenat in formatul nativ .keras si inspecteaza dimensiunea fisierului."
@@ -68,10 +68,10 @@
   },
   "48": {
     "glosar": [
-      {"termen": "Model Serving", "definitie": "Gazduirea unui model de Deep Learning intr-o infrastructura de server capabila sa primeasca cereri HTTP (request-uri) si sa returneze predictii instantanee (predictions)."},
+      {"termen": "Model Serving", "definitie": "Gazduirea unui model de Deep Learning intr-o infrastructura de server capabila sa primeasca cereri HTTP (request-uri) si sa returnece predictii instantanee (predictions)."},
       {"termen": "TF Serving", "definitie": "Un sistem de servire de inalta performanta dezvoltat de Google, optimizat pentru rularea modelelor TensorFlow si Keras in productie."}
     ],
-    "assets": "import tensorflow as tf\n# Incarcarea modelului salvat pentru servire directa\nmodel = tf.keras.models.load_model('final_keras_model.keras')\nprediction = model.predict(input_data)\nprint(f'Prediction output: {prediction}')",
+    "assets": "import tensorflow as tf\nmodel = tf.keras.models.load_model('final_keras_model.keras')\nprediction = model.predict(input_data)\nprint(f'Prediction output: {prediction}')",
     "exercitii": [
       "Pregateste un script care sa incarce un model .keras si sa simuleze o predictie pe o matrice dummy numpy."
     ]
@@ -81,7 +81,7 @@
       {"termen": "Hugging Face Spaces", "definitie": "O platforma cloud rapida si gratuita care permite gazduirea si publicarea aplicatiilor web de AI (Streamlit, Gradio) direct dintr-un repozitoriu Git."},
       {"termen": "API Endpoint", "definitie": "O adresa URL specifica expusa de server prin care alte aplicatii pot trimite date si primi inapoi predictiile modelului AI."}
     ],
-    "assets": "# Exemplu structura minima pentru deploy pe HF Spaces\nimport streamlit as st\nimport tensorflow as tf\n\nst.title('Predictie Live Keras Model')\nuploaded_file = st.file_uploader('Incarca o imagine... ')\n# Logica de incarcare model si predictie pe HF cloud",
+    "assets": "import streamlit as st\nimport tensorflow as tf\n\nst.title('Predictie Live Keras Model')\nuploaded_file = st.file_uploader('Incarca o imagine... ')",
     "exercitii": [
       "Creeaza configuratia minimala pentru un fisier app.py destinat platformei Hugging Face Spaces."
     ]
@@ -91,7 +91,7 @@
       {"termen": "Horizontal Scaling", "definitie": "Tehnica de scalare prin adaugarea mai multor instante sau servere identice in spatele unui Load Balancer pentru a gestiona un volum masiv de trafic."},
       {"termen": "Containerization (Docker)", "definitie": "Impachetarea aplicatiei AI si a tuturor dependentelor sale software intr-o imagine izolata care ruleaza identic pe orice server cloud."}
     ],
-    "assets": "# Exemplu structura fisier Dockerfile pentru scalare Deep Learning\n# FROM python:3.11-slim\n# WORKDIR /app\n# COPY requirements.txt .\n# RUN pip install -r requirements.txt\n# COPY . .\n# CMD [\"streamlit\", \"run\", \"app.py\"]",
+    "assets": "FROM python:3.11-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install -r requirements.txt\nCOPY . .\nCMD [\"streamlit\", \"run\", \"app.py\"]",
     "exercitii": [
       "Scrie un fisier text numit Dockerfile care sa izoleze aplicatia noastra Streamlit."
     ]
