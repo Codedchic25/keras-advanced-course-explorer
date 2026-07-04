@@ -15,4 +15,5 @@ COPY . .
 
 EXPOSE 7860
 
-ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0"]
+# Flag-uri industriale obligatorii pentru proxy-ul Hugging Face Spaces
+ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=7860", "--server.address=0.0.0.0", "--server.enableCORS=false", "--server.enableXsrfProtection=false"]
