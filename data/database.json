@@ -1,99 +1,93 @@
 {
   "42": {
     "glosar": [
-      {"termen": "Dense layer", "definitie": "Strat complet conectat (fully connected layer), in care fiecare neuron este legat de toti neuronii din stratul anterior."},
-      {"termen": "Activation Function", "definitie": "Functie matematica aplicata iesirii unui neuron pentru a adauga non-liniaritate in retea (ex: ReLU, Sigmoid)."},
-      {"termen": "Optimizer", "definitie": "Algoritm care ajusteaza greutatile retelei neuronale pentru a minimiza eroarea (ex: Adam, SGD)."},
-      {"termen": "Loss Function", "definitie": "Masura matematica ce arata cat de departe sunt predictiile modelului fata de valorile reale (ex: MSE, Cross-Entropy)."}
+      {"termen": "Dense layer", "definitie": "Strat complet conectat (fully connected layer), in care fiecare neuron este legat de toti neuronii din stratul anterior"},
+      {"termen": "Activation Function", "definitie": "Functie matematica aplicata iesirii unui neuron pentru a adauga non-liniaritate in retea (ex: ReLU, Sigmoid)"},
+      {"termen": "Optimizer", "definitie": "Algoritm care ajusteaza greutatile retelei neuronale pentru a minimiza eroarea (ex: Adam, SGD)"},
+      {"termen": "Loss Function", "definitie": "Masura matematica ce arata cat de departe sunt predictiile modelului fata de valorile reale (ex: MSE, Cross-Entropy)"}
     ],
     "assets": "from keras.models import Sequential\nfrom keras.layers import Dense\n\nmodel = Sequential([\n    Dense(64, activation='relu', input_shape=(4,)),\n    Dense(1, activation='sigmoid')\n])",
     "exercitii": [
-      "Creeaza un model cu 3 layere ascunse pe Iris.",
-      "Inlocuieste relu cu tanh.",
-      "Foloseste softmax pe stratul de iesire."
+      "Creeaza un model cu 3 layere ascunse pe Iris",
+      "Inlocuieste relu cu tanh",
+      "Foloseste softmax pe stratul de iesire"
     ]
   },
   "43": {
     "glosar": [
-      {"termen": "Dropout", "definitie": "Tehnica de regularizare prin oprirea aleatorie a neuronilor in timpul antrenarii pentru a preveni overfitting-ul."},
-      {"termen": "Callbacks", "definitie": "Functii apelate in puncte specifice ale antrenamentului (ex: EarlyStopping salveaza modelul cand performanta stagneaza)."},
-      {"termen": "TensorBoard", "definitie": "Suita de unelte web destinata vizualizarii performantelor si graficelor retelei in timp real."}
+      {"termen": "Dropout", "definitie": "Tehnica de regularizare prin oprirea aleatorie a neuronilor in timpul antrenarii pentru a preveni overfitting-ul"},
+      {"termen": "Callbacks", "definitie": "Functii apelate in puncte specifice ale antrenamentului (ex: EarlyStopping)"},
+      {"termen": "TensorBoard", "definitie": "Suita de unelte web destinata vizualizarii performantelor in timp real"}
     ],
-    "assets": "from keras.callbacks import EarlyStopping, ModelCheckpoint\n\nearly_stop = EarlyStopping(monitor='val_loss', patience=3)\ncheckpoint = ModelCheckpoint('best_model.h5', save_best_only=True)",
+    "assets": "from keras.callbacks import EarlyStopping\nearly_stop = EarlyStopping(monitor='val_loss', patience=3)",
     "exercitii": [
-      "Creeaza un model cu Dropout si 12 epoci.",
-      "Antreneaza un model cu EarlyStopping si TensorBoard."
+      "Creeaza un model cu Dropout si 12 epoci",
+      "Antreneaza un model cu EarlyStopping"
     ]
   },
   "44": {
     "glosar": [
-      {"termen": "Conv2D", "definitie": "Strat convolutional bidimensional folosit pentru extragerea caracteristicilor spatiale din imagini prin filtre rulante."},
-      {"termen": "MaxPooling2D", "definitie": "Operatie de downsampling care reduce dimensiunea spatiala a matricilor de caracteristici, retinand valorile maxime."}
+      {"termen": "Conv2D", "definitie": "Strat convolutional bidimensional folosit pentru extragerea caracteristicilor spatiale din imagini"}
     ],
-    "assets": "from keras.layers import Conv2D, MaxPooling2D, Flatten\n\nmodel = Sequential([\n    Conv2D(32, (3, 3), activation='relu', input_shape=(150, 150, 3)),\n    MaxPooling2D((2, 2)),\n    Flatten()\n])",
+    "assets": "from keras.layers import Conv2D, MaxPooling2D\nmodel = Sequential([\n    Conv2D(32, (3, 3), activation='relu', input_shape=(150, 150, 3))\n])",
     "exercitii": [
-      "Modifica dimensiunea imaginilor din dataset.",
-      "Adauga o clasa noua (ex: 'rabbits')."
+      "Modifica dimensiunea imaginilor din dataset"
     ]
   },
   "45": {
     "glosar": [
-      {"termen": "Transfer Learning", "definitie": "Tehnica prin care cunostintele unui model deja antrenat pe un set masiv de date sunt folosite pentru o problema noua."}
+      {"termen": "Transfer Learning", "definitie": "Tehnica prin care cunostintele unui model pre-antrenat sunt folosite pentru o problema noua"}
     ],
-    "assets": "from tensorflow.keras.applications import VGG16\n\nbase_model = VGG16(include_top=False, weights='imagenet', input_shape=(224, 224, 3))\nbase_model.trainable = False",
+    "assets": "from tensorflow.keras.applications import VGG16\nbase_model = VGG16(include_top=False, weights='imagenet')",
     "exercitii": [
-      "Inlocuieste VGG16 cu ResNet50.",
-      "Creeaza un proiect cu MobileNetV2."
+      "Inlocuieste VGG16 cu ResNet50"
     ]
   },
   "46": {
     "glosar": [
-      {"termen": "Data Augmentation", "definitie": "Tehnica de generare de noi imagini artificiale prin rotatii, decupari sau zoom pentru a mari diversitatea setului de date."}
+      {"termen": "Data Augmentation", "definitie": "Tehnica de generare de noi imagini artificiale prin rotatii sau zoom"}
     ],
-    "assets": "from tensorflow.keras.layers import RandomFlip, RandomRotation\n\ndata_augmentation = Sequential([\n    RandomFlip('horizontal'),\n    RandomRotation(0.1)\n])",
+    "assets": "from tensorflow.keras.layers import RandomFlip, RandomRotation",
     "exercitii": [
-      "Adauga un strat de zoom in pipeline-ul de augmentation."
+      "Adauga un strat de zoom in pipeline"
     ]
   },
   "47": {
     "glosar": [
-      {"termen": "Fine-Tuning", "definitie": "Procesul de dezghetare a ultimelor straturi ale unui model pre-antrenat si re-antrenarea lor cu o rata de invatare foarte mica pe noul dataset pentru o aliniere perfecta."},
-      {"termen": "Model Saving (h5/keras)", "definitie": "Salvarea intregii arhitecturi a modelului, a greutatilor si a configuratiei optimizatorului intr-un singur fisier pe disc pentru utilizare ulterioara."}
+      {"termen": "Fine-Tuning", "definitie": "Procesul de dezghetare a ultimelor straturi ale unui model pre-antrenat"}
     ],
-    "assets": "base_model.trainable = True\nfor layer in base_model.layers[:-4]:\n    layer.trainable = False\n\nmodel.compile(optimizer=Adam(learning_rate=1e-5), loss='categorical_crossentropy')\nmodel.save('final_keras_model.keras')",
+    "assets": "base_model.trainable = True\nfor layer in base_model.layers[:-4]:\n    layer.trainable = False",
     "exercitii": [
-      "Dezgheata doar ultimele 2 straturi ale retelei VGG16.",
-      "Salveaza modelul antrenat in formatul nativ .keras si inspecteaza dimensiunea fisierului."
+      "Salveaza modelul antrenat in formatul nativ .keras"
     ]
   },
   "48": {
     "glosar": [
-      {"termen": "Model Serving", "definitie": "Gazduirea unui model de Deep Learning intr-o infrastructura de server capabila sa primeasca cereri HTTP (request-uri) si sa returnece predictii instantanee (predictions)."},
-      {"termen": "TF Serving", "definitie": "Un sistem de servire de inalta performanta dezvoltat de Google, optimizat pentru rularea modelelor TensorFlow si Keras in productie."}
+      {"termen": "Model Serving", "definitie": "Gazduirea unui model de Deep Learning intr-o infrastructura de server HTTP"}
     ],
-    "assets": "import tensorflow as tf\nmodel = tf.keras.models.load_model('final_keras_model.keras')\nprediction = model.predict(input_data)\nprint(f'Prediction output: {prediction}')",
+    "assets": "import tensorflow as tf\nmodel = tf.keras.models.load_model('model.keras')",
     "exercitii": [
-      "Pregateste un script care sa incarce un model .keras si sa simuleze o predictie pe o matrice dummy numpy."
+      "Pregateste un script care sa simuleze o predictie"
     ]
   },
   "49": {
     "glosar": [
-      {"termen": "Hugging Face Spaces", "definitie": "O platforma cloud rapida si gratuita care permite gazduirea si publicarea aplicatiilor web de AI (Streamlit, Gradio) direct dintr-un repozitoriu Git."},
-      {"termen": "API Endpoint", "definitie": "O adresa URL specifica expusa de server prin care alte aplicatii pot trimite date si primi inapoi predictiile modelului AI."}
+      {"termen": "Hugging Face Spaces", "definitie": "O platforma cloud rapida care permite gazduirea aplicatiilor web de AI"}
     ],
-    "assets": "import streamlit as st\nimport tensorflow as tf\n\nst.title('Predictie Live Keras Model')\nuploaded_file = st.file_uploader('Incarca o imagine... ')",
+    "assets": "import streamlit as st\nst.title('Predictie Live Keras Model')",
     "exercitii": [
-      "Creeaza configuratia minimala pentru un fisier app.py destinat platformei Hugging Face Spaces."
+      "Creeaza configuratia minimala pentru un fisier app.py"
     ]
   },
   "50": {
     "glosar": [
-      {"termen": "Horizontal Scaling", "definitie": "Tehnica de scalare prin adaugarea mai multor instante sau servere identice in spatele unui Load Balancer pentru a gestiona un volum masiv de trafic."},
-      {"termen": "Containerization (Docker)", "definitie": "Impachetarea aplicatiei AI si a tuturor dependentelor sale software intr-o imagine izolata care ruleaza identic pe orice server cloud."}
+      {"termen": "Horizontal Scaling", "definitie": "Tehnica de scalare prin adaugarea mai multor instante identice"}
     ],
-    "assets": "FROM python:3.11-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install -r requirements.txt\nCOPY . .\nCMD [\"streamlit\", \"run\", \"app.py\"]",
+    "assets": "FROM python:3.11-slim\nWORKDIR /app\nCMD [\"streamlit\", \"run\", \"app.py\"]",
     "exercitii": [
-      "Scrie un fisier text numit Dockerfile care sa izoleze aplicatia noastra Streamlit."
+      "Scrie un Dockerfile care sa izoleze aplicatia"
     ]
   }
 }
+
+
