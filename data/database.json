@@ -1,93 +1,236 @@
 {
   "42": {
     "glosar": [
-      {"termen": "Dense layer", "definitie": "Strat complet conectat (fully connected layer), in care fiecare neuron este legat de toti neuronii din stratul anterior"},
-      {"termen": "Activation Function", "definitie": "Functie matematica aplicata iesirii unui neuron pentru a adauga non-liniaritate in retea (ex: ReLU, Sigmoid)"},
-      {"termen": "Optimizer", "definitie": "Algoritm care ajusteaza greutatile retelei neuronale pentru a minimiza eroarea (ex: Adam, SGD)"},
-      {"termen": "Loss Function", "definitie": "Masura matematica ce arata cat de departe sunt predictiile modelului fata de valorile reale (ex: MSE, Cross-Entropy)"}
+      {
+        "termen": {"RO": "Dense layer", "EN": "Dense layer", "DE": "Dense-Schicht"},
+        "definitie": {
+          "RO": "Strat complet conectat (fully connected layer), in care fiecare neuron este legat de toti neuronii din stratul anterior",
+          "EN": "Fully connected layer, where each neuron is connected to all neurons in the previous layer",
+          "DE": "Vollständig verbundene Schicht, in der jeder Neuron mit allen Neuronen der vorherigen Schicht verbunden ist"
+        }
+      },
+      {
+        "termen": {"RO": "Activation Function", "EN": "Activation Function", "DE": "Aktivierungsfunktion"},
+        "definitie": {
+          "RO": "Functie matematica aplicata iesirii unui neuron pentru a adauga non-liniaritate in retea (ex: ReLU, Sigmoid)",
+          "EN": "Mathematical function applied to a neuron output to introduce non-linearity into the network (e.g., ReLU, Sigmoid)",
+          "DE": "Mathematische Funktion, die auf den Ausgang eines Neurons angewendet wird, um Nichtlinearität in das Netzwerk einzuführen (z. B. ReLU, Sigmoid)"
+        }
+      },
+      {
+        "termen": {"RO": "Optimizer", "EN": "Optimizer", "DE": "Optimierer"},
+        "definitie": {
+          "RO": "Algoritm care ajusteaza greutatile retelei neuronale pentru a minimiza eroarea (ex: Adam, SGD)",
+          "EN": "Algorithm that adjusts neural network weights to minimize the error/loss (e.g., Adam, SGD)",
+          "DE": "Algorithmus, der die Gewichte des neuronalen Netzwerks anpasst, um den Fehler zu minimieren (z. B. Adam, SGD)"
+        }
+      },
+      {
+        "termen": {"RO": "Loss Function", "EN": "Loss Function", "DE": "Verlustfunktion"},
+        "definitie": {
+          "RO": "Masura matematica ce arata cat de departe sunt predictiile modelului fata de valorile reale (ex: MSE, Cross-Entropy)",
+          "EN": "Mathematical metric showing how far the model predictions are from the actual ground truth values (e.g., MSE, Cross-Entropy)",
+          "DE": "Mathematische Metrik, die anzeigt, wie weit die Modellvorhersagen von den tatsächlichen Werten entfernt sind (z. B. MSE, Cross-Entropy)"
+        }
+      }
     ],
     "assets": "from keras.models import Sequential\nfrom keras.layers import Dense\n\nmodel = Sequential([\n    Dense(64, activation='relu', input_shape=(4,)),\n    Dense(1, activation='sigmoid')\n])",
-    "exercitii": [
-      "Creeaza un model cu 3 layere ascunse pe Iris",
-      "Inlocuieste relu cu tanh",
-      "Foloseste softmax pe stratul de iesire"
-    ]
+    "exercitii": {
+      "RO": ["Creeaza un model cu 3 layere ascunse pe Iris", "Inlocuieste relu cu tanh", "Foloseste softmax pe stratul de iesire"],
+      "EN": ["Create a model with 3 hidden layers on Iris", "Replace relu with tanh", "Use softmax on the output layer"],
+      "DE": ["Erstellen Sie ein Modell mit 3 verborgenen Schichten auf Iris", "Ersetzen Sie relu durch tanh", "Verwenden Sie Softmax auf der Ausgangsschicht"]
+    }
   },
   "43": {
     "glosar": [
-      {"termen": "Dropout", "definitie": "Tehnica de regularizare prin oprirea aleatorie a neuronilor in timpul antrenarii pentru a preveni overfitting-ul"},
-      {"termen": "Callbacks", "definitie": "Functii apelate in puncte specifice ale antrenamentului (ex: EarlyStopping)"},
-      {"termen": "TensorBoard", "definitie": "Suita de unelte web destinata vizualizarii performantelor in timp real"}
+      {
+        "termen": {"RO": "Dropout", "EN": "Dropout", "DE": "Dropout"},
+        "definitie": {
+          "RO": "Tehnica de regularizare prin oprirea aleatorie a neuronilor in timpul antrenarii pentru a preveni overfitting-ul",
+          "EN": "Regularization technique that randomly deactivates neurons during training to prevent overfitting",
+          "DE": "Regularisierungstechnik, bei der Neuronen während des Trainings zufällig deaktiviert werden, um Overfitting zu verhindern"
+        }
+      },
+      {
+        "termen": {"RO": "Callbacks", "EN": "Callbacks", "DE": "Callbacks"},
+        "definitie": {
+          "RO": "Functii apelate in puncte specifice ale antrenamentului (ex: EarlyStopping salveaza starea modelului)",
+          "EN": "Functions called at specific points during training (e.g., EarlyStopping saves model state)",
+          "DE": "Funktionen, die an bestimmten Punkten während des Trainings aufgerufen werden (z. B. EarlyStopping speichert den Modellzustand)"
+        }
+      },
+      {
+        "termen": {"RO": "TensorBoard", "EN": "TensorBoard", "DE": "TensorBoard"},
+        "definitie": {
+          "RO": "Suita de unelte web destinata vizualizarii performantelor si graficelor retelei in timp real",
+          "EN": "Web-based toolkit designed for real-time visualization of network performance and graphs",
+          "DE": "Webbasiertes Toolkit zur Echtzeit-Visualisierung von Netzwerkleistungen und Grafiken"
+        }
+      }
     ],
-    "assets": "from keras.callbacks import EarlyStopping\nearly_stop = EarlyStopping(monitor='val_loss', patience=3)",
-    "exercitii": [
-      "Creeaza un model cu Dropout si 12 epoci",
-      "Antreneaza un model cu EarlyStopping"
-    ]
+    "assets": "from keras.callbacks import EarlyStopping, ModelCheckpoint\n\nearly_stop = EarlyStopping(monitor='val_loss', patience=3)\ncheckpoint = ModelCheckpoint('best_model.h5', save_best_only=True)",
+    "exercitii": {
+      "RO": ["Creeaza un model cu Dropout si 12 epoci", "Antreneaza un model cu EarlyStopping si TensorBoard"],
+      "EN": ["Create a model with Dropout and 12 epochs", "Train a model using EarlyStopping and TensorBoard"],
+      "DE": ["Erstellen Sie ein Modell mit Dropout und 12 Epochen", "Trainieren Sie ein Modell mit EarlyStopping und TensorBoard"]
+    }
   },
   "44": {
     "glosar": [
-      {"termen": "Conv2D", "definitie": "Strat convolutional bidimensional folosit pentru extragerea caracteristicilor spatiale din imagini"}
+      {
+        "termen": {"RO": "Conv2D", "EN": "Conv2D", "DE": "Conv2D"},
+        "definitie": {
+          "RO": "Strat convolutional bidimensional folosit pentru extragerea caracteristicilor spatiale din imagini prin filtre rulante",
+          "EN": "2D convolutional layer used to extract spatial features from images via sliding filters",
+          "DE": "2D-Konvolutionsschicht zur Extraktion räumlicher Merkmale aus Bildern über gleitende Filter"
+        }
+      },
+      {
+        "termen": {"RO": "MaxPooling2D", "EN": "MaxPooling2D", "DE": "MaxPooling2D"},
+        "definitie": {
+          "RO": "Operatie de downsampling care reduce dimensiunea spatiala a matricilor de caracteristici, retinand valorile maxime",
+          "EN": "Downsampling operation that reduces the spatial dimensions of feature maps, retaining maximum values",
+          "DE": "Downsampling-Operation, die die räumlichen Dimensionen von Feature-Maps reduziert und Maximalwerte beibehält"
+        }
+      }
     ],
-    "assets": "from keras.layers import Conv2D, MaxPooling2D\nmodel = Sequential([\n    Conv2D(32, (3, 3), activation='relu', input_shape=(150, 150, 3))\n])",
-    "exercitii": [
-      "Modifica dimensiunea imaginilor din dataset"
-    ]
+    "assets": "from keras.layers import Conv2D, MaxPooling2D, Flatten\n\nmodel = Sequential([\n    Conv2D(32, (3, 3), activation='relu', input_shape=(150, 150, 3)),\n    MaxPooling2D((2, 2)),\n    Flatten()\n])",
+    "exercitii": {
+      "RO": ["Modifica dimensiunea imaginilor din dataset", "Adauga o clasa noua (ex: rabbits)"],
+      "EN": ["Modify the image dimensions in the dataset", "Add a new class (e.g., rabbits)"],
+      "DE": ["Ändern Sie die Bildabmessungen im Datensatz", "Fügen Sie eine neue Klasse hinzu (z. B. rabbits)"]
+    }
   },
   "45": {
     "glosar": [
-      {"termen": "Transfer Learning", "definitie": "Tehnica prin care cunostintele unui model pre-antrenat sunt folosite pentru o problema noua"}
+      {
+        "termen": {"RO": "Transfer Learning", "EN": "Transfer Learning", "DE": "Transfer Learning"},
+        "definitie": {
+          "RO": "Tehnica prin care cunostintele unui model deja antrenat pe un set masiv de date sunt folosite pentru o problema noua",
+          "EN": "Technique where knowledge gained by a model trained on a massive dataset is applied to a new problem",
+          "DE": "Technik, bei der das Wissen eines Modells, das auf einem massiven Datensatz trainiert wurde, auf ein neues Problem angewendet wird"
+        }
+      }
     ],
-    "assets": "from tensorflow.keras.applications import VGG16\nbase_model = VGG16(include_top=False, weights='imagenet')",
-    "exercitii": [
-      "Inlocuieste VGG16 cu ResNet50"
-    ]
+    "assets": "from tensorflow.keras.applications import VGG16\n\nbase_model = VGG16(include_top=False, weights='imagenet', input_shape=(224, 224, 3))\nbase_model.trainable = False",
+    "exercitii": {
+      "RO": ["Inlocuieste VGG16 cu ResNet50", "Creeaza un proiect cu MobileNetV2"],
+      "EN": ["Replace VGG16 with ResNet50", "Create a project using MobileNetV2"],
+      "DE": ["Ersetzen Sie VGG16 durch ResNet50", "Erstellen Sie ein Projekt mit MobileNetV2"]
+    }
   },
   "46": {
     "glosar": [
-      {"termen": "Data Augmentation", "definitie": "Tehnica de generare de noi imagini artificiale prin rotatii sau zoom"}
+      {
+        "termen": {"RO": "Data Augmentation", "EN": "Data Augmentation", "DE": "Datenaugmentation"},
+        "definitie": {
+          "RO": "Tehnica de generare de noi imagini artificiale prin rotatii, decupari sau zoom pentru a mari diversitatea setului de date",
+          "EN": "Technique of generating artificial images via rotations, flips, or zooms to increase dataset diversity",
+          "DE": "Technik zur Generierung künstlicher Bilder durch Rotationen, Flips oder Zooms, um die Datensatzvielfalt zu erhöhen"
+        }
+      }
     ],
-    "assets": "from tensorflow.keras.layers import RandomFlip, RandomRotation",
-    "exercitii": [
-      "Adauga un strat de zoom in pipeline"
-    ]
+    "assets": "from tensorflow.keras.layers import RandomFlip, RandomRotation\n\ndata_augmentation = Sequential([\n    RandomFlip('horizontal'),\n    RandomRotation(0.1)\n])",
+    "exercitii": {
+      "RO": ["Adauga un strat de zoom in pipeline-ul de augmentation"],
+      "EN": ["Add a zoom layer into the augmentation pipeline"],
+      "DE": ["Fügen Sie eine Zoom-Schicht in die Augmentations-Pipeline ein"]
+    }
   },
   "47": {
     "glosar": [
-      {"termen": "Fine-Tuning", "definitie": "Procesul de dezghetare a ultimelor straturi ale unui model pre-antrenat"}
+      {
+        "termen": {"RO": "Fine-Tuning", "EN": "Fine-Tuning", "DE": "Feinabstimmung"},
+        "definitie": {
+          "RO": "Procesul de dezghetare a ultimelor straturi ale unui model pre-antrenat si re-antrenarea lor cu o rata de invatare foarte mica",
+          "EN": "Process of unfreezing the top layers of a pre-trained model and retraining them with a very low learning rate",
+          "DE": "Prozess des Auftauens der oberen Schichten eines vortrainierten Modells und deren erneutes Trainieren mit einer sehr niedrigen Lernrate"
+        }
+      },
+      {
+        "termen": {"RO": "Model Saving", "EN": "Model Saving", "DE": "Modellspeicherung"},
+        "definitie": {
+          "RO": "Salvarea intregii arhitecturi a modelului, a greutatilor si a configuratiei optimizatorului intr-un singur fisier (ex: .keras)",
+          "EN": "Saving the entire model architecture, weights, and optimizer configuration into a single file (e.g., .keras)",
+          "DE": "Speichern der gesamten Modellarchitektur, Gewichte und Optimiererkonfiguration in einer einzigen Datei (z. B. .keras)"
+        }
+      }
     ],
-    "assets": "base_model.trainable = True\nfor layer in base_model.layers[:-4]:\n    layer.trainable = False",
-    "exercitii": [
-      "Salveaza modelul antrenat in formatul nativ .keras"
-    ]
-  },
-  "48": {
-    "glosar": [
-      {"termen": "Model Serving", "definitie": "Gazduirea unui model de Deep Learning intr-o infrastructura de server HTTP"}
+    "assets": "base_model.trainable = True\nfor layer in base_model.layers[:-4]:\n    layer.trainable = False\n\nmodel.compile(optimizer=Adam(learning_rate=1e-5), loss='categorical_crossentropy')\nmodel.save('final_keras_model.keras')",
+    "exercitii": {
+        "termen": {"RO": "Model Serving", "EN": "Model Serving", "DE": "Modellbereitstellung"},
+        "definitie": {
+          "RO": "Gazduirea unui model de Deep Learning intr-o infrastructura de server capabila sa primeasca cereri HTTP si sa returneze predictii",
+          "EN": "Hosting a Deep Learning model in a server infrastructure capable of receiving HTTP requests and returning predictions",
+          "DE": "Hosting eines Deep-Learning-Modells in einer Serverinfrastruktur, die HTTP-Anfragen empfangen und Vorhersagen zurückgeben kann"
+        }
+      },
+      {
+        "termen": {"RO": "TF Serving", "EN": "TF Serving", "DE": "TF Serving"},
+        "definitie": {
+          "RO": "Un sistem de servire de inalta performanta dezvoltat de Google, optimizat pentru rularea modelelor TensorFlow si Keras in productie",
+          "EN": "A high-performance serving system developed by Google, optimized for running TensorFlow and Keras models in production",
+          "DE": "Ein von Google entwickeltes Hochleistungs-Bereitstellungssystem, das für die Ausführung von TensorFlow- und Keras-Modellen in der Produktion optimiert ist"
+        }
+      }
     ],
-    "assets": "import tensorflow as tf\nmodel = tf.keras.models.load_model('model.keras')",
-    "exercitii": [
-      "Pregateste un script care sa simuleze o predictie"
-    ]
+    "assets": "import tensorflow as tf\nmodel = tf.keras.models.load_model('final_keras_model.keras')\nprediction = model.predict(input_data)\nprint(f'Prediction output: {prediction}')",
+    "exercitii": {
+      "RO": ["Pregateste un script care sa incarce un model .keras si sa simuleze o predictie pe o matrice dummy numpy"],
+      "EN": ["Prepare a script to load a .keras model and simulate a prediction on a dummy numpy matrix"],
+      "DE": ["Beretiten Sie ein Skript vor, um ein .keras-Modell zu laden und eine Vorhersage auf einer Dummy-Numpy-Matrix zu simulieren"]
+    }
   },
   "49": {
     "glosar": [
-      {"termen": "Hugging Face Spaces", "definitie": "O platforma cloud rapida care permite gazduirea aplicatiilor web de AI"}
+      {
+        "termen": {"RO": "Hugging Face Spaces", "EN": "Hugging Face Spaces", "DE": "Hugging Face Spaces"},
+        "definitie": {
+          "RO": "O platforma cloud rapida si gratuita care permite gazduirea si publicarea aplicatiilor web de AI (Streamlit, Gradio)",
+          "EN": "A fast and free cloud platform that allows hosting and publishing AI web applications (Streamlit, Gradio)",
+          "DE": "Eine schnelle und kostenlose Cloud-Plattform, die das Hosting und Veröffentlichen von KI-Webanwendungen (Streamlit, Gradio) ermöglicht"
+        }
+      },
+      {
+        "termen": {"RO": "API Endpoint", "EN": "API Endpoint", "DE": "API-Endpunkt"},
+        "definitie": {
+          "RO": "O adresa URL specifica expusa de server prin care alte aplicatii pot trimite date si primi inapoi predictiile modelului AI",
+          "EN": "A specific URL address exposed by the server through which other apps can send data and receive AI model predictions",
+          "DE": "Eine vom Server bereitgestellte spezifische URL-Adresse, über die andere Apps Daten senden und KI-Modellvorhersagen empfangen können"
+        }
+      }
     ],
-    "assets": "import streamlit as st\nst.title('Predictie Live Keras Model')",
-    "exercitii": [
-      "Creeaza configuratia minimala pentru un fisier app.py"
-    ]
+    "assets": "import streamlit as st\nimport tensorflow as tf\n\nst.title('Predictie Live Keras Model')\nuploaded_file = st.file_uploader('Incarca o imagine... ')",
+    "exercitii": {
+      "RO": ["Creeaza configuratia minimala pentru un fisier app.py destinat platformei Hugging Face Spaces"],
+      "EN": ["Create the minimal configuration for an app.py file targeted for Hugging Face Spaces"],
+      "DE": ["Erstellen Sie die Minimalkonfiguration für eine app.py-Datei, die für Hugging Face Spaces bestimmt ist"]
+    }
   },
   "50": {
     "glosar": [
-      {"termen": "Horizontal Scaling", "definitie": "Tehnica de scalare prin adaugarea mai multor instante identice"}
+      {
+        "termen": {"RO": "Horizontal Scaling", "EN": "Horizontal Scaling", "DE": "Horizontale Skalierung"},
+        "definitie": {
+          "RO": "Tehnica de scalare prin adaugarea mai multor instante sau servere identice in spatele unui Load Balancer",
+          "EN": "Scaling technique by adding multiple identical instances or servers behind a Load Balancer",
+          "DE": "Skalierungstechnik durch Hinzufügen mehrerer identischer Instanzen oder Server hinter einem Load Balancer"
+        }
+      },
+      {
+        "termen": {"RO": "Containerization", "EN": "Containerization", "DE": "Containerisierung"},
+        "definitie": {
+          "RO": "Impachetarea aplicatiei AI si a tuturor dependentelor sale software intr-o imagine izolata Docker care ruleaza identic oriunde",
+          "EN": "Packaging the AI app and all its software dependencies into an isolated Docker image that runs identically anywhere",
+          "DE": "Verpacken der KI-App und all ihrer Software-Abhängigkeiten in ein isoliertes Docker-Image, das überall identisch läuft"
+        }
+      }
     ],
-    "assets": "FROM python:3.11-slim\nWORKDIR /app\nCMD [\"streamlit\", \"run\", \"app.py\"]",
-    "exercitii": [
-      "Scrie un Dockerfile care sa izoleze aplicatia"
-    ]
+    "assets": "FROM python:3.11-slim\nWORKDIR /app\nCOPY requirements.txt .\nRUN pip install -r requirements.txt\nCOPY . .\nCMD [\"streamlit\", \"run\", \"app.py\"]",
+    "exercitii": {
+      "RO": ["Scrie un fisier text numit Dockerfile care sa izoleze aplicatia noastra Streamlit"],
+      "EN": ["Write a text file named Dockerfile to isolate our Streamlit application"],
+      "DE": ["Schreiben Sie eine Textdatei namens Dockerfile, um unsere Streamlit-Anwendung zu isolieren"]
+    }
   }
 }
-
-
