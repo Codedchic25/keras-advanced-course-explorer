@@ -5,7 +5,21 @@ from io import StringIO
 from pathlib import Path
 import streamlit as st
 
+# 1. Configurare Pagină
 st.set_page_config(page_title="Multi-Lang Course Explorer", page_icon="🎓", layout="wide")
+
+# 2. Injectare CSS pentru a mări lățimea Sidebar-ului și a preveni tăierea textului
+st.markdown(
+    """
+    <style>
+        [data-testid="stSidebar"] {
+            min-width: 380px !important;
+            max-width: 460px !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 BASE_DIR = Path(__file__).resolve().parent
 DATABASE_PATH = BASE_DIR / "data" / "database.json"
@@ -33,8 +47,11 @@ def load_progres():
     return {}
 
 def save_progres(p):
-    with open(PROGRES_PATH, "w", encoding="utf-8") as f:
-        json.dump(p, f, indent=2, ensure_ascii=False)
+    try:
+        PROGRES_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(PROGRES_PATH, "w", encoding="utf-8") as f:
+            json.dump(p, f, indent=2, ensure_ascii=False)
+    except Exception: pass
 
 progres = load_progres()
 
