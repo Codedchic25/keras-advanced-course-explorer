@@ -13,7 +13,6 @@ BASE_DIR = Path(__file__).resolve().parent
 DATABASE_PATH = BASE_DIR / "data" / "database.json"
 
 # Încărcarea bazei de date cu gestionare strictă a erorilor și căi absolute
-@st.cache_data
 def load_course_data():
     try:
         with open(DATABASE_PATH, "r", encoding="utf-8") as f:
