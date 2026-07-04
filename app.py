@@ -9,6 +9,26 @@ from pathlib import Path
 
 import streamlit as st
 
+# Rută de siguranță pentru deblocarea proxy-ului Hugging Face Spaces
+if __name__ == "__main__" or "uvicorn" in str(st.runtime.get_instance):
+    from fastapi import FastAPI
+    from fastapi.responses import PlainTextResponse
+    import uvicorn
+    import threading
+
+    # Creăm o mini-aplicație de fundal doar pentru verificarea de stare a platformei
+    api = FastAPI()
+    @api.get("/")
+    def health_check():
+        return PlainTextResponse("OK", status_code=200)
+
+    def run_api():
+        uvicorn.run(api, host="0.0.0.0", port=7860)
+
+    # Lansăm verificarea pe un fir secundar pentru a nu bloca interfața Streamlit
+    threading.Thread(target=run_api, daemon=True).start()
+
+
 # 1. Configurare Pagină
 st.set_page_config(
     page_title="Multi-Lang Course Explorer", page_icon="🎓", layout="wide"
