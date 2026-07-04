@@ -114,7 +114,7 @@
     ],
     "assets": "from tensorflow.keras.applications import VGG16\n\nbase_model = VGG16(include_top=False, weights='imagenet', input_shape=(224, 224, 3))\nbase_model.trainable = False",
     "exercitii": {
-      "RO": ["Inlocuieste VGG16 cu ResNet50", "Creeaza un proiect cu MobileNetV2"],
+      "RO": ["Inlocuieste VGG16 cu ResNet50", "Creeaza un project cu MobileNetV2"],
       "EN": ["Replace VGG16 with ResNet50", "Create a project using MobileNetV2"],
       "DE": ["Ersetzen Sie VGG16 durch ResNet50", "Erstellen Sie ein Projekt mit MobileNetV2"]
     }
@@ -158,15 +158,23 @@
     ],
     "assets": "base_model.trainable = True\nfor layer in base_model.layers[:-4]:\n    layer.trainable = False\n\nmodel.compile(optimizer=Adam(learning_rate=1e-5), loss='categorical_crossentropy')\nmodel.save('final_keras_model.keras')",
     "exercitii": {
+      "RO": ["Dezgheata doar ultimele 2 straturi ale retelei VGG16", "Salveaza modelul antrenat in formatul nativ .keras"],
+      "EN": ["Unfreeze only the last 2 layers of the VGG16 network", "Save the trained model in native .keras format"],
+      "DE": ["Tauen Sie nur die letzten 2 Schichten des VGG16-Netzwerks auf", "Speichern Sie das trainierte Modell im nativen .keras-Format"]
+    }
+  },
+  "48": {
+    "glosar": [
+      {
         "termen": {"RO": "Model Serving", "EN": "Model Serving", "DE": "Modellbereitstellung"},
         "definitie": {
           "RO": "Gazduirea unui model de Deep Learning intr-o infrastructura de server capabila sa primeasca cereri HTTP si sa returneze predictii",
           "EN": "Hosting a Deep Learning model in a server infrastructure capable of receiving HTTP requests and returning predictions",
           "DE": "Hosting eines Deep-Learning-Modells in einer Serverinfrastruktur, die HTTP-Anfragen empfangen und Vorhersagen zurückgeben kann"
         }
-      }
-    ],
-      "termen": {"RO": "TF Serving", "EN": "TF Serving", "DE": "TF Serving"},
+      },
+      {
+        "termen": {"RO": "TF Serving", "EN": "TF Serving", "DE": "TF Serving"},
         "definitie": {
           "RO": "Un sistem de servire de inalta performanta dezvoltat de Google, optimizat pentru rularea modelelor TensorFlow si Keras in productie",
           "EN": "A high-performance serving system developed by Google, optimized for running TensorFlow and Keras models in production",
@@ -178,7 +186,7 @@
     "exercitii": {
       "RO": ["Pregateste un script care sa incarce un model .keras si sa simuleze o predictie pe o matrice dummy numpy"],
       "EN": ["Prepare a script to load a .keras model and simulate a prediction on a dummy numpy matrix"],
-      "DE": ["Beretiten Sie ein Skript vor, um ein .keras-Modell zu laden und eine Vorhersage auf einer Dummy-Numpy-Matrix zu simulieren"]
+      "DE": ["Bereiten Sie ein Skript vor, um ein .keras-Modell zu laden und eine Vorhersage auf einer Dummy-Numpy-Matrix zu simulieren"]
     }
   },
   "49": {
