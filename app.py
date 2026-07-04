@@ -10,7 +10,7 @@ from pathlib import Path
 import streamlit as st
 
 # Rută de siguranță pentru deblocarea proxy-ului Hugging Face Spaces
-if __name__ == "__main__" or "uvicorn" in str(st.runtime.get_instance):
+if __name__ == "__main__" or "uvicorn" in str(st.runtime.get_instance()):
     from fastapi import FastAPI
     from fastapi.responses import PlainTextResponse
     import uvicorn
