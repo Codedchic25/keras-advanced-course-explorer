@@ -1,4 +1,4 @@
-# Technical Interview Q&A — Project Architecture
+# 🎓 Technical Interview Q&A — Project Architecture
 
 Acest ghid cuprinde întrebările critice de arhitectură software pe care un Senior Developer sau Technical Lead le poate adresa pe marginea acestui codebase în timpul unui interviu tehnic.
 
@@ -32,17 +32,19 @@ Toate testele din folderul `tests/` folosesc obiecte simulate de tip `AsyncMock`
 Sistemul folosește o barieră dublă de securitate:
 1. **Izolarea Promptului de Sistem**: Promptul din `prompts/system.yaml` este complet static. Schimbările și intrările dinamice ale utilizatorului sunt injectate exclusiv în mesajul utilizatorului (`user_prompt`), împiedicând rescrierea instrucțiunilor de bază.
 2. **Blocul de Securitate Brut (Security Guardrail)**: Poziționat strategic la finalul promptului de sistem, acesta instruiește în mod explicit modelul să trateze toate datele extrase din unelte ca date nesigure (`untrusted DATA`), anulând orice instrucțiune malițioasă ascunsă în fișierele de curs.
+
 ---
 
-### Q5: În arhitectura finală UI, de ce ai preferat meniul dropdown `st.selectbox` nativ în locul unei biblioteci de componente externe complexe (precum streamlit-antd-components)?
+### Q5: În arhitectura finală UI, de ce ai preferat componentele native Streamlit în locul unei biblioteci externe complexe (precum streamlit-antd-components)?
 **Răspuns:**
-Componentele externe care se bazează pe randări JavaScript/Ant-Design personalizate sunt dependente de versiunile de browser, pot suferi de probleme de contrast în temele Dark Mode ale utilizatorului și pot bloca execuția pe ecranele dispozitivelor mobile (responsive limits). Prin alegerea componentelor native Streamlit (`st.selectbox`, `st.checkbox`):
-1. **Predictibilitate și Stabilitate**: Randarea este instantanee, garantată de nucleul Streamlit, reducând numărul de dependențe vulnerabile în `requirements.txt`.
-2. **Performanță**: Reducem latența la reîncărcarea stării (`st.rerun()`), oferind o navigare mult mai fluidă studentului.
+Componentele externe care aduc dependențe secundare grele (precum `fastapi` sau servere `uvicorn` asunse în fundal) pot deturna sau bloca verificările de tip „heartbeat” ale platformelor cloud precum Hugging Face Spaces pe portul `7860`. De asemenea, randările JavaScript customizate pot suferi de probleme de contrast sau de fragmentare a textului. Prin alegerea componentelor native (`st.selectbox`, `st.checkbox`) susținute de un control CSS fin injectat manual:
+1. **Predictibilitate la Runtime:** Execuția este curată, nativă și elimină conflictele de porturi din containerul Docker.
+2. **No-Truncation Policy:** Lățimea barei laterale a fost extinsă programatic la `380px-460px`, garantând că titlurile lungi enterprise nu sunt tăiate cu puncte-puncte, indiferent de rezoluție.
+
 ---
 
 ### Q6: Cum ai implementat sistemul de internaționalizare (i18n) și de ce este important acest detaliu arhitectural într-o aplicație de producție?
 **Răspuns:**
 Pentru a asigura suportul pentru limbi multiple (RO/EN/DE), am decuplat complet etichetele de text și instrucțiunile statice din codul sursă, externalizându-le într-un fișier centralizat numit `data/locales.json`.
 1. **Arhitectură Curată (i18n Best Practices)**: `app.py` nu mai conține string-uri hardcodate; el doar injectează dinamic un dicționar de traduceri (`t`) bazat pe starea selectorului web la runtime.
-2. **Mentenabilitate și Scalabilitate**: Adăugarea unei limbi noi (ex: Franceză sau Spaniolă) nu necesită modificarea niciunei linii de cod în orchestratorul Streamlit; se adaugă doar un nou nod de traduceri în fișierul JSON, reducând riscul apariției erorilor de sintaxă în producție.
+2. **Mentenabilitate și Scalabilitate**: Adăugarea unei limbi noi (ex: Franceză) nu necesită modificarea niciunei linii de cod în orchestratorul Streamlit; se adaugă doar un nou nod de traduceri în fișierul JSON, reducând riscul apariției erorilor de sintaxă în producție.
