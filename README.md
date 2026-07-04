@@ -1,20 +1,68 @@
 ---
 title: Keras Advanced Course Explorer
-emoji: 🚀
+emoji: 🎓
 colorFrom: red
 colorTo: red
 sdk: docker
 app_port: 7860
 tags:
-- streamlit
+  - streamlit
 pinned: false
-short_description: Multi-language Advanced Keras course explorer featuring a se
+short_description: Multi-language Keras Explorer
 license: mit
 ---
 
-# Welcome to Streamlit!
+# 🎓 Keras Advanced Course Explorer
 
-Edit `/src/streamlit_app.py` to customize this app to your heart's desire. :heart:
+Enterprise Architecture | Sessions 42-50 | Production Ready
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+Aplicație web interactivă dezvoltată în Streamlit și izolată industrial în container Docker, concepută pentru explorarea multilingvă (RO/EN/DE) a conceptelor avansate de Keras, model serving și scalare cloud.
+
+---
+
+# 🔍 Course RAG Expert Method
+
+Această metodă implementează un sistem de interogare semantică (RAG) ghidat de un Agent AI pentru parcurgerea și verificarea cunoștințelor din cursul avansat de Python, Keras și Cloud Deployment (Sesiunile 42-50).
+
+## 📋 Ce generează metoda
+Un răspuns structurat și validat riguros, extras direct din contextul local al cursului:
+
+```json
+{
+  "answer": "O explicație tehnică detaliată...",
+  "matched_session_id": 44,
+  "related_glossary_terms": [
+    {
+      "term": "Conv2D",
+      "definition": "Strat convolutional..."
+    }
+  ],
+  "quick_check_question": "Întrebare deschisă pentru student?"
+}
+```
+
+## 💻 Rularea Interfeței Grafice (UI Dashboard)
+Pentru a parcurge sesiunile interactiv, a gestiona progresul persistent și a rula cod live în Sandbox-ul integrat, executați local:
+```bash
+uv run streamlit run app.py
+```
+
+## ⚡ Rularea manuală prin CLI (Smoke Test Backend)
+Asigură-te că cheia `OPENAI_API_KEY` este configurată în fișierul tău `.env`, apoi rulează din rădăcina proiectului:
+```bash
+uv run python -m methods.course_rag.agent --query "What is Dropout?" --session 43
+```
+
+## 🎯 Rularea testelor unitare (Offline)
+Pentru a rula cele 12 teste rapide care nu apelează LLM-ul real și validează schema de date:
+```bash
+\$env:PYTHONPATH="."; uv run pytest methods/course_rag/tests/ -v
+```
+
+## 📈 Rularea evaluărilor de prompturi (Evals)
+Pentru rularea testelor de consistență a prompturilor utilizând Promptfoo:
+```bash
+cd methods/course_rag
+npx promptfoo@latest eval
+```
+
