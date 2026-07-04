@@ -5,134 +5,95 @@ from io import StringIO
 from pathlib import Path
 import streamlit as st
 
-# Configurare de bază a paginii pentru un aspect profesional de dashboard
-st.set_page_config(page_title="Keras Advanced Course Explorer", layout="wide")
+st.set_page_config(page_title="Multi-Lang Course Explorer", page_icon="🎓", layout="wide")
 
-# Definirea căilor absolute obligatorii pentru containerul Docker
 BASE_DIR = Path(__file__).resolve().parent
 DATABASE_PATH = BASE_DIR / "data" / "database.json"
+PROGRES_PATH = BASE_DIR / "data" / "progres.json"
+LOCALES_PATH = BASE_DIR / "data" / "locales.json"
 
-# Încărcarea bazei de date cu gestionare strictă a erorilor și căi absolute
-def load_course_data():
-    try:
-        with open(DATABASE_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        st.error(f"Error: '{DATABASE_PATH}' file not found.")
-        return {}
-    except json.JSONDecodeError:
-        st.error(f"Error: '{DATABASE_PATH}' is corrupted.")
-        return {}
+COURSES = {
+    42: {"RO": "Introducere în Keras: Primii Pași", "EN": "Introduction to Keras: First Steps", "DE": "Einführung in Keras: Erste Schritte"},
+    43: {"RO": "Keras Avansat: Personalizare și Reglare", "EN": "Advanced Keras: Customization & Tuning", "DE": "Fortgeschrittenes Keras: Anpassung & Tuning"},
+    44: {"RO": "Clasificare de Imagini cu CNN", "EN": "Image Classification with CNNs", "DE": "Bildklassifizierung mit CNNs"},
+    45: {"RO": "Transfer Learning: Modele Pre-antrenate", "EN": "Transfer Learning: Pre-trained Models", "DE": "Transfer Learning: Vorab trainierte Modelle"},
+    46: {"RO": "Data Augmentation și Callbacks", "EN": "Data Augmentation & Callbacks", "DE": "Datenaugmentation & Callbacks"},
+    47: {"RO": "Keras Ultra-Avansat: Fine-Tuning", "EN": "Ultra-Advanced Keras: Fine-Tuning", "DE": "Ultra-Fortgeschrittenes Keras: Fine-Tuning"},
+    48: {"RO": "Servire Modele: Pregătire Producție", "EN": "Model Serving: Production Readiness", "DE": "Modellbereitstellung: Produktionsreife"},
+    49: {"RO": "Deploy AI: Publicare pe Cloud", "EN": "AI Deploy: Cloud Publishing", "DE": "KI-Bereitstellung: Cloud-Veröffentlichung"},
+    50: {"RO": "Scaling Deep Learning Apps", "EN": "Scaling Deep Learning Apps", "DE": "Skalierung von Deep-Learning-Apps"}
+}
 
-data = load_course_data()
-
-# Gestionarea stării sesiunii pentru selectarea limbii (RO implicit)
-if "lang" not in st.session_state:
-    st.session_state.lang = "ro"
-
-# Bara laterală (Sidebar) pentru selecția limbajului
-with st.sidebar:
-    st.header("🌐 Limbă / Language / Sprache")
-    lang_options = {"ro": "Română", "en": "English", "de": "Deutsch"}
-    selected_lang = st.selectbox(
-        "Alege limba / Choose language", 
-        options=list(lang_options.keys()), 
-        format_func=lambda x: lang_options[x]
-    )
-    if selected_lang != st.session_state.lang:
-        st.session_state.lang = selected_lang
-        st.rerun()
-
-lang = st.session_state.lang
-ui = data.get("locales", {}).get(lang, {})
-sessions = data.get("sessions", {})
-
-# Titlul principal al aplicației
-st.title(f"🎓 {ui.get('title', 'Keras Advanced Course Explorer')}")
-st.caption("✨ Enterprise Architecture | Sessions 42-50 | Production Ready")
-
-# Organizarea interfeței în tab-uri curate
-tab_explorer, tab_rag, tab_sandbox = st.tabs([
-    f"📚 {ui.get('tab_explorer', 'Course Explorer')}", 
-    "🔍 RAG Semantic Simulator", 
-    "💻 Secure Python Sandbox"
-])
-
-# TAB 1: Exploratorul de Curs
-with tab_explorer:
-    st.header(ui.get("welcome", "Explorați Sesiunile Cursului"))
-    
-    session_keys = sorted(list(sessions.keys()))
-    selected_session = st.selectbox(ui.get("select_session", "Selectați o sesiune"), session_keys)
-    
-    if selected_session:
-        sess_data = sessions[selected_session]
-        st.subheader(f"🚀 {selected_session}: {sess_data.get('title', {}).get(lang, '')}")
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown(f"### 📋 {ui.get('concepts', 'Concepte Cheie')}")
-            for concept in sess_data.get("concepts", {}).get(lang, []):
-                st.markdown(f"- {concept}")
-        with col2:
-            st.markdown(f"### 🎯 {ui.get('objectives', 'Obiective de Învățare')}")
-            for obj in sess_data.get("objectives", {}).get(lang, []):
-                st.markdown(f"- {obj}")
-        
-        st.markdown("---")
-        st.markdown(f"### 📖 {ui.get('glossary', 'Glosar Tehnic')}")
-        glos_col1, glos_col2 = st.columns(2)
-        idx = 0
-        for term, desc in sess_data.get("glossary", {}).get(lang, {}).items():
-            target_col = glos_col1 if idx % 2 == 0 else glos_col2
-            with target_col:
-                with st.expander(f"🔹 {term}"):
-                    st.write(desc)
-            idx += 1
-
-# TAB 2: Simulatorul RAG Semantic
-with tab_rag:
-    st.header("🔍 Retrieval-Augmented Generation (RAG) Simulator")
-    st.info("Simulați modul în care un LLM interoghează baza de date a cursului Keras utilizând vectori semantici.")
-    
-    user_query = st.text_input("Introduceți întrebarea tehnică (ex: Model serving, Docker, Custom Layers):")
-    if user_query:
-        st.markdown("#### 📑 Documente relevante găsite în baza de date:")
-        found = False
-        for s_id, s_content in sessions.items():
-            title_text = s_content.get("title", {}).get(lang, "").lower()
-            concepts_text = " ".join(s_content.get("concepts", {}).get(lang, [])).lower()
-            
-            if user_query.lower() in title_text or user_query.lower() in concepts_text:
-                found = True
-                st.success(f"**Potrivire identificată în {s_id}**")
-                st.write(f"*Concepte indexate:* {', '.join(s_content.get('concepts', {}).get(lang, []))}")
-        if not found:
-            st.warning("Nu s-au găsit documente care să conțină acest termen. Încercați 'Docker' sau 'Serving'.")
-
-# TAB 3: Sandbox Python Securizat
-with tab_sandbox:
-    st.header("💻 Secure Python Execution Sandbox")
-    st.warning("⚠️ Execuție locală izolată. Nu introduceți comenzi OS distructive.")
-    
-    default_code = """# Testează structura vectorilor Keras sau operațiile matematice
-import numpy as np
-
-vector_sesiune = np.array([0.42, 0.49, 0.50])
-print("Vectorul de Sesiuni indexat:", vector_sesiune)
-print("Suma cumulativă a expertizei:", np.sum(vector_sesiune))
-"""
-    code_input = st.text_area("Cod Python de rulat:", value=default_code, height=200)
-    
-    if st.button("Execută Codul"):
-        old_stdout = sys.stdout
-        redirected_output = sys.stdout = StringIO()
-        
+def load_progres():
+    if PROGRES_PATH.exists():
         try:
-            # Execuție izolată pe bază de mediu local curat
-            exec(code_input, {"__builtins__": __builtins__, "np": __import__("numpy")})
-            sys.stdout = old_stdout
-            st.code(redirected_output.getvalue(), language="python")
-        except Exception as e:
-            sys.stdout = old_stdout
-            st.error(f"Execution Error: {str(e)}")
+            with open(PROGRES_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception: return {}
+    return {}
+
+def save_progres(p):
+    with open(PROGRES_PATH, "w", encoding="utf-8") as f:
+        json.dump(p, f, indent=2, ensure_ascii=False)
+
+progres = load_progres()
+
+with st.sidebar:
+    st.title("🎓 Course Explorer")
+    lang = st.selectbox("🌐 Language / Limbă / Sprache:", options=["RO", "EN", "DE"], index=0)
+
+    locales = json.load(open(LOCALES_PATH, "r", encoding="utf-8")) if LOCALES_PATH.exists() else {}
+    t = locales.get(lang, locales.get("RO", {}))
+
+    st.caption(t.get("subtitle", ""))
+    st.markdown("---")
+
+    st.markdown(f"**{t.get('select_label', 'Selectează:')}**")
+    options = [f"S{sid}: {title_map[lang]} {'✅' if progres.get(str(sid)) else '⏳'}" for sid, title_map in COURSES.items()]
+    selected = st.selectbox("Alege:", options=options, label_visibility="collapsed")
+    current_id = int(selected.split(":")[0].replace("S", ""))
+    st.markdown("---")
+
+    st.markdown(f"**{t.get('progress_title', 'Progres')}**")
+    done = sum(1 for v in progres.values() if v is True)
+    chart_data = {"Stare": [t.get("finished", "Gata"), t.get("remaining", "Rămas")], "Sesiuni": [done, 9 - done]}
+    st.bar_chart(data=chart_data, x="Stare", y="Sesiuni")
+
+st.header(t.get("details_header", "Sesiunea {}").format(current_id, COURSES[current_id][lang]))
+
+chk = st.checkbox(t.get("checkbox_label", "Completat"), value=progres.get(str(current_id), False))
+if chk != progres.get(str(current_id), False):
+    progres[str(current_id)] = chk
+    save_progres(progres)
+    st.rerun()
+
+db = json.load(open(DATABASE_PATH, "r", encoding="utf-8")) if DATABASE_PATH.exists() else {}
+content = db.get(str(current_id))
+
+if content:
+    t1, t2, t3, t4 = st.tabs([t.get("tab_glossary", "Glosar"), t.get("tab_code", "Cod"), t.get("tab_exercises", "Exerciții"), t.get("tab_sandbox", "Sandbox")])
+
+    with t1:
+        for item in content.get("glosar", []):
+            st.markdown(f"**🔹 {item['termen']}**")
+            st.write(item["definitie"])
+            st.write("---")
+    with t2: st.code(content.get("assets", ""), language="python")
+    with t3:
+        for i, ex in enumerate(content.get("exercitii", []), 1): st.write(f"{i}. {ex}")
+    with t4:
+        st.markdown(t.get("sandbox_header", ""))
+        code = st.text_area("Editor:", value=content.get("assets", ""), height=200, key=f"sb_{current_id}")
+        if st.button(t.get("run_btn", "Execută")):
+            old, red = sys.stdout, StringIO()
+            sys.stdout = red
+            try:
+                scope = {}
+                exec(code, {}, scope)
+                sys.stdout = old
+                st.code(red.getvalue(), language="text")
+            except Exception as e:
+                sys.stdout = old
+                st.error(t.get("exec_err", "Eroare: {}").format(e))
+else:
+    st.info(t.get("missing_content", "Lipsă conținut").format(current_id))
