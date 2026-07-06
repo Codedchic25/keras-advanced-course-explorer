@@ -224,7 +224,7 @@ if content:
 
             worker_thread = threading.Thread(target=run_isolated_code)
             worker_thread.start()
-            worker_thread.join(timeout=10.0)  # Limită strictă de 10 secunde
+            worker_thread.join(timeout=30.0)  # Limită mărită la 30 de secunde
 
             if worker_thread.is_alive():
                 st.error(
